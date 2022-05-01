@@ -129,37 +129,43 @@ void CUniverse::SetEnumeration( bool bMale )
 /////////////////////////////////////////////////////////////////////////////
 // parse strings in the format of "key=value"
 bool CUniverse::ParseKeyValueString( CString& csLine, CString& csKey, CString& csValue )
-{	bool bOK = true;
-	char* pBuf = csLine.GetBuffer( csLine.GetLength() + 1 );
-	char* pToken = strtok( pBuf, "=\n" );
-	if ( pToken )
-	{	csKey = pToken;
-		pToken = strtok( NULL, "=\n" );
-		if ( pToken )
-		{	csValue = pToken;
-		} else
-		{	bOK = false;
-		}
-	} else
-	{	bOK = false;
+{
+	bool bOK = false;
+
+	const CString csDelim( "=\n" );
+	int nStart = 0;
+
+	csKey = csLine.Tokenize( csDelim, nStart );
+	if ( !csKey.IsEmpty() )
+	{
+		csValue = csLine.Tokenize( csDelim, nStart );
+		bOK = true;
+
 	}
-	csLine.ReleaseBuffer();
+
 	return bOK;
 } // ParseKeyValueString
 
 /////////////////////////////////////////////////////////////////////////////
 // read a string value
 bool CUniverse::ReadKey( CStdioFile& refFile, LPCSTR pcszKey, CString& refValue )
-{	CString csLine, csKey, csValue;
+{
+	CString csLine, csKey, csValue;
 	if ( !refFile.ReadString( csLine ))
-	{	return UnexpectedEOF();
+	{
+		return UnexpectedEOF();
 	}
+
 	if ( ParseKeyValueString( csLine, csKey, csValue ))
-	{	if ( csKey == pcszKey )
-		{	refValue = csValue;
+	{
+		if ( csKey == pcszKey )
+		{
+			refValue = csValue;
 			return true;
-		} else
-		{	CString csMsg;
+		}
+		else
+		{
+			CString csMsg;
 			csMsg.Format( "Error reading key: %s, %s", pcszKey, csLine );
 			AfxMessageBox( csMsg );
 			return false;

@@ -42,14 +42,19 @@ CEnvironmentBoolean::CEnvironmentBoolean()
 			csLine.TrimLeft();
 			csLine.TrimRight();
 			int nLen = csLine.GetLength();
+			
 			// lower case all text for simpler comparisons
 			csLine.MakeLower();
+			
 			if ( nLine == 0 ) // verify this is a truth table file
 			{
 				if ( csLine != "truth table" )
 				{
 					bError = true;
-					csMessage.Format( "%03d: Truth table file has invalid format\n", nLine );
+					csMessage.Format
+					( 
+						"%03d: Truth table file has invalid format\n", nLine 
+					);
 					break;
 				}		
 			} else if ( nLen == 0 )	// ignore empty lines
@@ -58,81 +63,104 @@ CEnvironmentBoolean::CEnvironmentBoolean()
 			{	
 			} else // parse remaining lines
 			{
-				char* pBuf = csLine.GetBuffer( nLen );
-				CString csDelim( ",=" );
-				char* pToken = strtok( pBuf, csDelim );
-				if ( pToken )
+				CString csValue;
+
+				const CString csDelim( ",=" );
+				int nStart = 0;
+				CString csToken = csLine.Tokenize( csDelim, nStart );
+				if ( !csToken.IsEmpty() )
 				{
-					CString csToken = pToken;
-					CString csValue;
 					// read the number of input variables
-					if ( csToken == "inputs" ) // read the number of input variables
-					{
-						pToken = strtok( NULL, csDelim );
-						if ( pToken )
+					if ( csToken == "inputs" ) 
+					{	
+						csValue = csLine.Tokenize( csDelim, nStart );
+						if ( !csValue.IsEmpty() )
 						{
-							csValue = pToken;
 							SetNumberOfVariables( atol( csValue ));	
-						} else
+						}
+						else
 						{
 							bError = true;
-							csMessage.Format( "%03d: Error reading number of inputs\n", nLine );
+							csMessage.Format
+							( 
+								"%03d: Error reading number of inputs\n", nLine 
+							);
 							break;
 						}
-					} else if ( csToken == "outputs" ) // read the number of output variables
+					// read the number of output variables
+					}
+					else if ( csToken == "outputs" ) 
 					{
-						pToken = strtok( NULL, csDelim );
-						if ( pToken )
+						csValue = csLine.Tokenize( csDelim, nStart );
+						if ( !csValue.IsEmpty() )
 						{
-							csValue = pToken;
 							SetNumberOfOutputs( atol( csValue ));
-						} else
+						} 
+						else
 						{
 							bError = true;
-							csMessage.Format( "%03d: Error reading number of outputs\n", nLine );
+							csMessage.Format
+							( 
+								"%03d: Error reading number of outputs\n", nLine 
+							);
 							break;
 						}
-					} else if ( csToken == "maxterms" ) // read the maximum number of terms in the equation
+					// read the maximum number of terms in the equation
+					}
+					else if ( csToken == "maxterms" ) 
 					{
-						pToken = strtok( NULL, csDelim );
-						if ( pToken )
+						csValue = csLine.Tokenize( csDelim, nStart );
+						if ( !csValue.IsEmpty() )
 						{
-							csValue = pToken;
 							SetMaximumNumberOfTerms( atol( csValue ));
-						} else
+						}
+						else
 						{
 							bError = true;
-							csMessage.Format( "%03d: Error reading maximum number of terms\n", nLine );
+							csMessage.Format
+							( 
+								"%03d: Error reading maximum number of terms\n", nLine 
+							);
 							break;
 						}
-					} else if ( csToken == "output" ) // read the output variable being evaluated
+					}
+					else if ( csToken == "output" ) // read the output variable being evaluated
 					{
-						pToken = strtok( NULL, csDelim );
-						if ( pToken )
+						csValue = csLine.Tokenize( csDelim, nStart );
+						if ( !csValue.IsEmpty() )
 						{
-							csValue = pToken;
 							SetOutput( atol( csValue ));
-						} else
+						}
+						else
 						{
 							bError = true;
-							csMessage.Format( "%03d: Error reading output value\n", nLine );
+							csMessage.Format
+							( 
+								"%03d: Error reading output value\n", nLine 
+							);
 							break;
 						}
-					} else if ( csToken == "invert" ) // generate inverted output?
+					// generate inverted output?
+					}
+					else if ( csToken == "invert" ) 
 					{
-						pToken = strtok( NULL, csDelim );
-						if ( pToken )
+						csValue = csLine.Tokenize( csDelim, nStart );
+						if ( !csValue.IsEmpty() )
 						{
-							csValue = pToken;
 							int nValue = atol( csValue );
 							SetInvertedOutput( nValue != 0 );
-						} else
+						}
+						else
 						{
 							bError = true;
-							csMessage.Format( "%03d: Error reading invert value\n", nLine );
+							csMessage.Format
+							( 
+								"%03d: Error reading invert value\n", nLine 
+							);
 							break;
 						}
-					} else // read a row from the truth table
+					}
+					else // read a row from the truth table
 					{
 						TABLE_ENTRY te;
 						char* pStop; // where the conversion stops
@@ -144,8 +172,8 @@ CEnvironmentBoolean::CEnvironmentBoolean()
 
 						// through away input comment--this is a binary equivalent of the leading
 						// hex value--to aid the user, but not used by the program
-						pToken = strtok( NULL, csDelim ); 
-						if ( pToken )
+						csToken = csLine.Tokenize( csDelim, nStart );
+						if ( !csToken.IsEmpty() )
 						{
 							int nOut = 0; // column we are reading
 							int nOutput = GetOutput(); // column we are looking for
@@ -156,33 +184,44 @@ CEnvironmentBoolean::CEnvironmentBoolean()
 							
 							// parse the columns of output until we read the output
 							// we are interested in--'output' token read earlier
-							pToken = strtok( NULL, csDelim );
-							while ( pToken )
+							do 
 							{
-								csValue = pToken;
-								if ( nOut == nOutput ) // this is the output we want
-								{	int nValue = atol( csValue );
+								csValue = csLine.Tokenize( csDelim, nStart );
+								if ( csValue.IsEmpty() )
+								{
+									break;
+								}
+
+								// this is the output we want
+								if ( nOut == nOutput ) 
+								{
+									int nValue = atol( csValue );
 									bool bValue = nValue != 0;
 									if ( GetInvertedOutput())
-									{	bValue = !bValue;
+									{
+										bValue = !bValue;
 									}
+
 									// store it in the table entry
 									te.bOutput = bValue;  
 									bError = false;	// signal success
 									break;	
 								}
-								pToken = strtok( NULL, csDelim ); // get the next column
+
 								nOut++;	// and increment the column number
-							}
+
+							} while ( true );
 
 							if ( bError )
 							{
 								break; // exit and display a message
-							} else
+							}
+							else
 							{
 								m_TruthTable.push_back( te ); // store entry in table
 							}
-						} else // line ended unexpectedly
+						} 
+						else // line ended unexpectedly
 						{
 							bError = true;	
 							csMessage.Format( "%03d: Unexpected end-of-line\n", nLine );
@@ -192,15 +231,21 @@ CEnvironmentBoolean::CEnvironmentBoolean()
 			}
 			nLine++; // keep track of line number for error messages
 		}
+
 		if ( bError ) // tell the user what went wrong
 		{
-			csMessage += "An error occurred reading the truth table file:\n\t TruthTableNoDC.txt";
+			csMessage += 
+				"An error occurred reading the truth "
+				"table file:\n\t TruthTableNoDC.txt";
 			AfxMessageBox( csMessage );
 		}
 	}
 	catch(...)
 	{
-		AfxMessageBox( "Could not open truth table file: TruthTableNoDC.txt" );
+		AfxMessageBox
+		( 
+			"Could not open truth table file: TruthTableNoDC.txt" 
+		);
 		bError = true;
 	}
 
