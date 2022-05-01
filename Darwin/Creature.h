@@ -1,14 +1,7 @@
-// Creature.h: interface for the CCreature class.
-//
-//////////////////////////////////////////////////////////////////////
-
-#if !defined(AFX_CREATURE_H__457BDE03_A75A_11D4_B7BB_00C04FFA3C73__INCLUDED_)
-#define AFX_CREATURE_H__457BDE03_A75A_11D4_B7BB_00C04FFA3C73__INCLUDED_
-
-#if _MSC_VER > 1000
+/////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2003-2022 by W. T. Block, All Rights Reserved
+/////////////////////////////////////////////////////////////////////////////
 #pragma once
-#endif // _MSC_VER > 1000
-
 #include <vector>
 #include "Environment.h"
 
@@ -45,7 +38,7 @@ public:
 	// set the creature's name
 	void SetName( LPCSTR pcszName ){ m_csName = pcszName; }
 	// return number of ancestors
-	int GetNumberOfAncestors(){ return m_Ancestors.size(); }
+	int GetNumberOfAncestors(){ return (int)m_Ancestors.size(); }
 	// get an ancestor given an index to ancestor array
 	CString GetAncestor( int nIndex )
 	{	
@@ -84,7 +77,7 @@ public:
 	}
 
 	// length of the DNA
-	int GetLengthOfDNA(){ return m_DNA.size(); }
+	int GetLengthOfDNA(){ return (int)m_DNA.size(); }
 	// length of the DNA
 	void SetLengthOfDNA( int nValue ){ m_DNA.resize( nValue ); }
 
@@ -163,7 +156,7 @@ public:
 
 	// Mutation is one of the ways variety is added to the
 	// gene pool of the creature population. The uChance parameter
-	// represents the likelyhood of one of the DNA rungs being 
+	// represents the likelihood of one of the DNA rungs being 
 	// changed ( 1 chance in uChances )
 	void Mutate( UINT uChance = 1000 );
 
@@ -201,4 +194,4 @@ protected:
 	vector<CString> m_Ancestors; // mother, father, grand parents, etc.
 };
 
-#endif // !defined(AFX_CREATURE_H__457BDE03_A75A_11D4_B7BB_00C04FFA3C73__INCLUDED_)
+/////////////////////////////////////////////////////////////////////////////

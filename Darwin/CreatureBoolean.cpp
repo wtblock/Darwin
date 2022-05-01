@@ -1,6 +1,6 @@
-// CreatureBoolean.cpp: implementation of the CCreatureBoolean class.
-//
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2003-2022 by W. T. Block, All Rights Reserved
+/////////////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
 #include "darwin.h"
@@ -14,9 +14,9 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // Construction/Destruction
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // constructor to randomly create creatures given the number of rungs
 // in the DNA and the number of restricted generations
 CCreatureBoolean::CCreatureBoolean( int nRungs, int nGenerations )
@@ -55,7 +55,7 @@ CCreatureBoolean::CCreatureBoolean( int nRungs, int nGenerations )
 		{	int nValue = (int)pow( 2, nGeneration );
 			nAncestors += nValue;
 		}
-		// add the relative's names to the creature's geneology
+		// add the relative's names to the creature's genealogy
 		for ( nAncestor = 0; nAncestor < nAncestors; nAncestor++ )
 		{	// create an ancestor
 			CoCreateGuid( &guidName );
@@ -66,21 +66,21 @@ CCreatureBoolean::CCreatureBoolean( int nRungs, int nGenerations )
 	}
 }
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // copy constructor used for cloning creatures
 CCreatureBoolean::CCreatureBoolean( CCreatureBoolean* pClone )
 {
 	*this = *pClone;
 }
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // default destructor
 CCreatureBoolean::~CCreatureBoolean()
 {
 
 }
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // Given another creature (the father), a new creature is produced.
 // Combining of DNA is on a gene by gene basis and is therefore 
 // Species specific.
@@ -159,7 +159,7 @@ CCreature* CCreatureBoolean::Reproduce( CCreature& refFather )
 	return pCreatureBaby;
 } // Reproduce
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // A signature is like a fingerprint, it is a unique way of identifying
 // the creature, and like reproduction, it is species dependent.
 // For the CCreatureBoolean, the signature is the 
@@ -185,7 +185,7 @@ CString CCreatureBoolean::GetSignature()
 	const int nVariables = GetNumberOfVariables(); // number of binary variables
 	const int nTerms = GetMaximumNumberOfTerms(); // maximum terms in the equation
 	const int nInputs = nTerms * nVariables; // total bits for use or invert genes
-	const int nDnaSize =  m_DNA.size(); // length of a DNA
+	const int nDnaSize = (int)m_DNA.size(); // length of a DNA
 	const int nFirstChar = 'a';
 	const int nOutput = GetOutput();
 
@@ -238,7 +238,7 @@ CString CCreatureBoolean::GetSignature()
 	return csOutput;
 } // GetSignature
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // format a string to represent a DNA 
 CString CCreatureBoolean::FormatDnaString()
 {
@@ -265,4 +265,4 @@ CString CCreatureBoolean::FormatDnaString()
 	return csDNA;
 } // FormatDnaString
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////

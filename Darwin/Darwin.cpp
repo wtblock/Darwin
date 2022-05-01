@@ -1,7 +1,6 @@
-
-// Darwin.cpp : Defines the class behaviors for the application.
-//
-
+/////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2022 by W. T. Block, All Rights Reserved
+/////////////////////////////////////////////////////////////////////////////
 #include "stdafx.h"
 #include "afxwinappex.h"
 #include "afxdialogex.h"
@@ -28,12 +27,7 @@ END_MESSAGE_MAP()
 // CDarwinApp construction
 CDarwinApp::CDarwinApp()
 {
-	// TODO: replace application ID string below with unique ID string; recommended
-	// format for string is CompanyName.ProductName.SubProduct.VersionInformation
 	SetAppID(_T("Darwin.AppID.NoVersion"));
-
-	// TODO: add construction code here,
-	// Place all significant initialization in InitInstance
 }
 
 /////////////////////////////////////////////////////////////////////////////

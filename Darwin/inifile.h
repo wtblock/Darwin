@@ -1,13 +1,9 @@
-#if !defined(AFX_INIFILE_H__624D3692_1C2B_11D2_82AD_006008CA4072__INCLUDED_)
-#define AFX_INIFILE_H__624D3692_1C2B_11D2_82AD_006008CA4072__INCLUDED_
-
-#if _MSC_VER >= 1000
+/////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2003-2022 by W. T. Block, All Rights Reserved
+/////////////////////////////////////////////////////////////////////////////
 #pragma once
-#endif // _MSC_VER >= 1000
 
-// IniFile.h : header file
-//
-
+/////////////////////////////////////////////////////////////////////////////
 class CIniFile : public CObject
 {
 	DECLARE_DYNAMIC(CIniFile)
@@ -52,8 +48,3 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////
-
-//{{AFX_INSERT_LOCATION}}
-// Microsoft Developer Studio will insert additional declarations immediately before the previous line.
-
-#endif // !defined(AFX_INIFILE_H__624D3692_1C2B_11D2_82AD_006008CA4072__INCLUDED_)

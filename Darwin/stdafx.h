@@ -1,8 +1,6 @@
-
-// stdafx.h : include file for standard system include files,
-// or project specific include files that are used frequently,
-// but are changed infrequently
-
+/////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2003-2022 by W. T. Block, All Rights Reserved
+/////////////////////////////////////////////////////////////////////////////
 #pragma once
 
 #ifndef VC_EXTRALEAN

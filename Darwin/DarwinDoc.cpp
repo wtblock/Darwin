@@ -1,6 +1,6 @@
-
-// DarwinDoc.cpp : implementation of the CDarwinDoc class
-//
+/////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2003-2022 by W. T. Block, All Rights Reserved
+/////////////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
 #include "Darwin.h"
@@ -72,8 +72,11 @@ void CDarwinDoc::Dump(CDumpContext& dc) const
 // CDarwinDoc commands
 BOOL CDarwinDoc::OnOpenDocument( LPCTSTR pszPathName )
 {
+#ifdef _DEBUG
 	if ( IsModified() )
 		TRACE0( "Warning: OnOpenDocument replaces an unsaved document\n" );
+#endif //_DEBUG
+
 	bool bOK = false;
 	CFile file;
 	CFileException fe;

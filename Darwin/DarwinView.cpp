@@ -1,6 +1,7 @@
 
-// DarwinView.cpp : implementation of the CDarwinView class
-//
+/////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2003-2022 by W. T. Block, All Rights Reserved
+/////////////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
 #include "Darwin.h"
@@ -121,7 +122,10 @@ void CDarwinView::OnUpdate( CView* pSender, LPARAM lHint, CObject* pHint )
 	m_uMutationChance = pDoc->m_Universe.GetMutationChance();
 	m_uChildren = pDoc->m_Universe.GetChildren();
 
-	pDoc->m_Universe.GetHighScoreData( m_nHighScore, m_uHighGeneration, m_csSignature );
+	pDoc->m_Universe.GetHighScoreData
+	( 
+		m_nHighScore, m_uHighGeneration, m_csSignature 
+	);
 	m_nAvgFitness = pDoc->m_Universe.GetAverageFitness();
 
 	UpdateData( FALSE );
@@ -210,10 +214,12 @@ void CDarwinView::OnTimer( UINT_PTR nIDEvent )
 	switch ( nIDEvent )
 	{
 		case s_uTimerRun: // running timer
-			if ( pDoc->m_Universe.GetStalledFitness() ) // nothing is happening
+			// nothing is happening
+			if ( pDoc->m_Universe.GetStalledFitness() ) 
 			{
 				OnEnd();
-				if ( !pDoc->m_Universe.GetAcceptableFitness() ) // this is not good enough			 
+				// this is not good enough			 
+				if ( !pDoc->m_Universe.GetAcceptableFitness() ) 
 				{
 					pDoc->OnNewDocument();
 					m_uRetrys++;
@@ -231,7 +237,10 @@ void CDarwinView::OnTimer( UINT_PTR nIDEvent )
 			}
 			break;
 		case s_uTimerUpdate: // display update timer
-			pDoc->m_Universe.GetHighScoreData( m_nHighScore, m_uHighGeneration, m_csSignature );
+			pDoc->m_Universe.GetHighScoreData
+			( 
+				m_nHighScore, m_uHighGeneration, m_csSignature 
+			);
 			DisplayUpdate();
 			break;
 	}
@@ -266,7 +275,11 @@ void CDarwinView::Run()
 		CIniFile ini( "Settings" );
 		ini.Write( "Clones", (long)pDoc->m_Universe.GetNumberOfClones() );
 		ini.Write( "Gender", pDoc->m_Universe.GetGender() );
-		ini.Write( "Restricted Generations", (long)pDoc->m_Universe.GetRestrictedGenerations() );
+		ini.Write
+		( 
+			"Restricted Generations", 
+			(long)pDoc->m_Universe.GetRestrictedGenerations() 
+		);
 		ini.Write( "Mutation", pDoc->m_Universe.GetMutation() );
 		ini.Write( "Population", (long)pDoc->m_Universe.GetInitialPopulation() );
 		ini.Write( "Mutation Chance", (long)pDoc->m_Universe.GetMutationChance() );
@@ -293,7 +306,10 @@ void CDarwinView::Run()
 	SetTimer( s_uTimerUpdate, s_uUpdatePeriodInMSecs, NULL ); // display update
 	if ( m_bSingleStep )
 	{
-		pDoc->m_Universe.GetHighScoreData( m_nHighScore, m_uHighGeneration, m_csSignature );
+		pDoc->m_Universe.GetHighScoreData
+		( 
+			m_nHighScore, m_uHighGeneration, m_csSignature 
+		);
 		OnPause();
 	}
 

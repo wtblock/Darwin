@@ -1,6 +1,6 @@
-// IniFile.cpp : implementation file
-//
-
+/////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2003-2022 by W. T. Block, All Rights Reserved
+/////////////////////////////////////////////////////////////////////////////
 #include "stdafx.h"
 #include "IniFile.h"
 #include "math.h"
@@ -15,31 +15,37 @@ static char THIS_FILE[] = __FILE__;
 // CIniFile
 IMPLEMENT_DYNAMIC(CIniFile, CObject)
 
+/////////////////////////////////////////////////////////////////////////////
 CIniFile::CIniFile(LPCTSTR szSectionName)
 {
 	SetSectionName(szSectionName);
 }
 
+/////////////////////////////////////////////////////////////////////////////
 CIniFile::CIniFile()
 {
 	BOOL m_bEntrySet = FALSE;
 }
 
+/////////////////////////////////////////////////////////////////////////////
 CIniFile::~CIniFile()
 {
 }
 
+/////////////////////////////////////////////////////////////////////////////
 CString &CIniFile::GetSectionName()
 {
 	return csSectionName;
 }
 
+/////////////////////////////////////////////////////////////////////////////
 void CIniFile::SetSectionName(LPCTSTR szSectionName)
 {
 	m_bEntrySet   = TRUE;
 	csSectionName = szSectionName;
 }
 
+/////////////////////////////////////////////////////////////////////////////
 void CIniFile::Read(LPCTSTR lpszEntry, short & nData, short nDefault)
 {
 	ASSERT(m_bEntrySet);
@@ -47,6 +53,7 @@ void CIniFile::Read(LPCTSTR lpszEntry, short & nData, short nDefault)
 	nData = AfxGetApp()->GetProfileInt(GetSectionName(), lpszEntry, nDefault);
 }
 
+/////////////////////////////////////////////////////////////////////////////
 void CIniFile::Write(LPCTSTR lpszEntry, short nData)
 {
 	ASSERT(m_bEntrySet);
@@ -54,6 +61,7 @@ void CIniFile::Write(LPCTSTR lpszEntry, short nData)
 	AfxGetApp()->WriteProfileInt(GetSectionName(), lpszEntry, nData);
 }
 
+/////////////////////////////////////////////////////////////////////////////
 void CIniFile::Read(LPCTSTR lpszEntry, bool & bData, bool bDefault)
 {
 	short nData;
@@ -66,12 +74,14 @@ void CIniFile::Read(LPCTSTR lpszEntry, bool & bData, bool bDefault)
 	}
 }
 
+/////////////////////////////////////////////////////////////////////////////
 void CIniFile::Write(LPCTSTR lpszEntry, bool bData)
 {
 	short nData = bData ? 1 : 0;
 	Write( lpszEntry, nData );
 }
 
+/////////////////////////////////////////////////////////////////////////////
 void CIniFile::Read(LPCTSTR lpszEntry, CString &csData)
 {
 	CString csDefault;
@@ -79,6 +89,7 @@ void CIniFile::Read(LPCTSTR lpszEntry, CString &csData)
 	Read(lpszEntry, csData, csDefault);
 }
 
+/////////////////////////////////////////////////////////////////////////////
 void CIniFile::Read(LPCTSTR lpszEntry, CString &csData, CString &csDefault)
 {
 	ASSERT(m_bEntrySet);
@@ -86,6 +97,7 @@ void CIniFile::Read(LPCTSTR lpszEntry, CString &csData, CString &csDefault)
 	csData = AfxGetApp()->GetProfileString(GetSectionName(), lpszEntry, csDefault);
 }
 
+/////////////////////////////////////////////////////////////////////////////
 void CIniFile::Write(LPCTSTR lpszEntry, CString csData)
 {
 	ASSERT(m_bEntrySet);
@@ -93,6 +105,7 @@ void CIniFile::Write(LPCTSTR lpszEntry, CString csData)
 	AfxGetApp()->WriteProfileString(GetSectionName(), lpszEntry, csData);
 }
 
+/////////////////////////////////////////////////////////////////////////////
 void CIniFile::Read(LPCTSTR lpszEntry, long &lData, long lDefault)
 {
 	ASSERT(m_bEntrySet);
@@ -107,6 +120,7 @@ void CIniFile::Read(LPCTSTR lpszEntry, long &lData, long lDefault)
 	lData = ConvertHexStringToLong(csData);
 }
 
+/////////////////////////////////////////////////////////////////////////////
 void CIniFile::Write(LPCTSTR lpszEntry, long lData)
 {
 	ASSERT(m_bEntrySet);
@@ -116,6 +130,7 @@ void CIniFile::Write(LPCTSTR lpszEntry, long lData)
 	AfxGetApp()->WriteProfileString(GetSectionName(), lpszEntry, csWriteBuffer);
 }
 
+/////////////////////////////////////////////////////////////////////////////
 void CIniFile::Read(LPCTSTR lpszEntry, float &fData, float fDefault)
 {
 	ASSERT(m_bEntrySet);
@@ -130,6 +145,7 @@ void CIniFile::Read(LPCTSTR lpszEntry, float &fData, float fDefault)
 	fData = ConvertHexStringToFloat(csData);
 }
 
+/////////////////////////////////////////////////////////////////////////////
 void CIniFile::Write(LPCTSTR lpszEntry, float fData)
 {
 	ASSERT(m_bEntrySet);
@@ -139,11 +155,13 @@ void CIniFile::Write(LPCTSTR lpszEntry, float fData)
 	AfxGetApp()->WriteProfileString(GetSectionName(), lpszEntry, csWriteBuffer);
 }
 
+/////////////////////////////////////////////////////////////////////////////
 CString CIniFile::UseDefault()
 {
 	return "Use default";
 }
 
+/////////////////////////////////////////////////////////////////////////////
 long CIniFile::ConvertHexStringToLong(CString & csInput)
 {
 	CString csHex;
@@ -162,6 +180,7 @@ long CIniFile::ConvertHexStringToLong(CString & csInput)
 	return lRet;
 }
 
+/////////////////////////////////////////////////////////////////////////////
 CString CIniFile::ConvertLongToHexString(long lInput)
 {
 	char	*pt = (char *) &lInput;
@@ -175,6 +194,7 @@ CString CIniFile::ConvertLongToHexString(long lInput)
 	return csRet;
 }
 
+/////////////////////////////////////////////////////////////////////////////
 float CIniFile::ConvertHexStringToFloat(CString &csInput)
 {
 	CString csHex;
@@ -195,6 +215,7 @@ float CIniFile::ConvertHexStringToFloat(CString &csInput)
 	return fRet;
 }
 
+/////////////////////////////////////////////////////////////////////////////
 CString CIniFile::ConvertFloatToHexString(float fInput)
 {
 	char	*pt = (char *) &fInput;
@@ -208,6 +229,7 @@ CString CIniFile::ConvertFloatToHexString(float fInput)
 	return csRet;
 }
 	
+/////////////////////////////////////////////////////////////////////////////
 CString CIniFile::ConvertCharToHexString(UCHAR ch)
 {
 	CString csHexString;
@@ -217,6 +239,7 @@ CString CIniFile::ConvertCharToHexString(UCHAR ch)
 	return csHexString;
 }
 
+/////////////////////////////////////////////////////////////////////////////
 UCHAR CIniFile::ConvertHexStringToChar(CString csHexString)
 {
 	ASSERT(2 == csHexString.GetLength());
@@ -245,6 +268,7 @@ UCHAR CIniFile::ConvertHexStringToChar(CString csHexString)
 	return chRet;
 }
 
+/////////////////////////////////////////////////////////////////////////////
 void CIniFile::Read(LPCTSTR lpszEntry, COLORREF &color, COLORREF colorDefault)
 {
 	long lTemp;
@@ -254,11 +278,13 @@ void CIniFile::Read(LPCTSTR lpszEntry, COLORREF &color, COLORREF colorDefault)
 	color = lTemp;
 }
 
+/////////////////////////////////////////////////////////////////////////////
 void CIniFile::Write(LPCTSTR lpszEntry, COLORREF color)
 {
 	Write(lpszEntry, long(color));
 }
 
+/////////////////////////////////////////////////////////////////////////////
 void CIniFile::Read(LPCTSTR lpszEntry, CRect &rect, CRect rectDefault)
 {
 	CString csTemp, csSub;
@@ -294,6 +320,7 @@ void CIniFile::Read(LPCTSTR lpszEntry, CRect &rect, CRect rectDefault)
 	rect = *pRect;	
 }
 
+/////////////////////////////////////////////////////////////////////////////
 void CIniFile::Write(LPCTSTR lpszEntry, CRect rect)
 {
 	CString csTemp;
@@ -302,6 +329,7 @@ void CIniFile::Write(LPCTSTR lpszEntry, CRect rect)
 	Write( lpszEntry, csTemp );
 }
 
+/////////////////////////////////////////////////////////////////////////////
 // read a window's default rectangle and move/resize the window to that location
 void CIniFile::Read( CWnd* pWnd, LPCTSTR lpszEntry /* = 0 */)
 {	CRect rectDefault, rect;
@@ -319,6 +347,7 @@ void CIniFile::Read( CWnd* pWnd, LPCTSTR lpszEntry /* = 0 */)
 	pWnd->MoveWindow( rect );		
 }
 
+/////////////////////////////////////////////////////////////////////////////
 // write a window's rectangle
 void CIniFile::Write(CWnd* pWnd, LPCTSTR lpszEntry /* = 0 */)
 {	CRect rect;
@@ -334,3 +363,5 @@ void CIniFile::Write(CWnd* pWnd, LPCTSTR lpszEntry /* = 0 */)
 	}
 	Write( csKey, rect );
 }
+
+/////////////////////////////////////////////////////////////////////////////

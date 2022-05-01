@@ -1,14 +1,7 @@
-// UniverseBoolean.h: interface for the CUniverseBoolean class.
-//
-//////////////////////////////////////////////////////////////////////
-
-#if !defined(AFX_UNIVERSEBOOLEAN_H__D8E6E0C9_5135_4F6D_86CA_8357D850E95C__INCLUDED_)
-#define AFX_UNIVERSEBOOLEAN_H__D8E6E0C9_5135_4F6D_86CA_8357D850E95C__INCLUDED_
-
-#if _MSC_VER > 1000
+/////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2003-2022 by W. T. Block, All Rights Reserved
+/////////////////////////////////////////////////////////////////////////////
 #pragma once
-#endif // _MSC_VER > 1000
-
 #include "Universe.h"
 #include "EnvironmentBoolean.h"
 
@@ -111,4 +104,4 @@ protected:
 
 };
 
-#endif // !defined(AFX_UNIVERSEBOOLEAN_H__D8E6E0C9_5135_4F6D_86CA_8357D850E95C__INCLUDED_)
+////////////////////////////////////////////////////////////////////////////

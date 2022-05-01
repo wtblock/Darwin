@@ -1,16 +1,10 @@
-// CreatureBoolean.h: interface for the CCreatureBoolean class.
-//
-//////////////////////////////////////////////////////////////////////
-
-#if !defined(AFX_CREATUREBOOLEAN_H__D078E94C_656C_4C9C_AF67_DDAC354DB5B3__INCLUDED_)
-#define AFX_CREATUREBOOLEAN_H__D078E94C_656C_4C9C_AF67_DDAC354DB5B3__INCLUDED_
-
-#if _MSC_VER > 1000
+/////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2003-2022 by W. T. Block, All Rights Reserved
+/////////////////////////////////////////////////////////////////////////////
 #pragma once
-#endif // _MSC_VER > 1000
-
 #include "Creature.h"
 
+/////////////////////////////////////////////////////////////////////////////
 class CCreatureBoolean : public CCreature  
 {
 // attributes
@@ -109,4 +103,4 @@ protected:
 	bool m_bInvertedOutput;
 };
 
-#endif // !defined(AFX_CREATUREBOOLEAN_H__D078E94C_656C_4C9C_AF67_DDAC354DB5B3__INCLUDED_)
+/////////////////////////////////////////////////////////////////////////////

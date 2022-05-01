@@ -1,13 +1,7 @@
-// Universe.h: interface for the CUniverse class.
-//
-
-#if !defined(AFX_UNIVERSE_H__8FEEA008_A783_11D4_B7BC_00C04FFA3C73__INCLUDED_)
-#define AFX_UNIVERSE_H__8FEEA008_A783_11D4_B7BC_00C04FFA3C73__INCLUDED_
-
-#if _MSC_VER > 1000
+/////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2003-2022 by W. T. Block, All Rights Reserved
+/////////////////////////////////////////////////////////////////////////////
 #pragma once
-#endif // _MSC_VER > 1000
-
 #include "creature.h"
 #include <vector>
 #include <queue>
@@ -20,7 +14,7 @@
 // are allocated on the heap with the new operator.  This template
 // insures the pointers themselves are not compared, but instead are
 // dereferenced first, and the contents of what they are pointing to
-// (CCreatures) are compaired.
+// (CCreatures) are compared.
 
 // CCreatures have a less than operator, so when creatures are 
 // compared to each other, their fitness values determine
@@ -126,10 +120,10 @@ public:
 	COleDateTimeSpan GetRunTime(){ return m_timeSpan; }
 
 	// get the female population
-	UINT GetFemalePopulation(){ return m_FemalePopulation.size(); }
+	UINT GetFemalePopulation(){ return (UINT)m_FemalePopulation.size(); }
 
 	// get the male population
-	UINT GetMalePopulation(){ return m_MalePopulation.size(); }
+	UINT GetMalePopulation(){ return (UINT)m_MalePopulation.size(); }
 
 	// update high score data
 	void UpdateHighScoreData();
@@ -144,7 +138,7 @@ public:
 
 // operations
 public:
-	// reset the start date/time back to un-initialized state,
+	// reset the start date/time back to uninitialized state,
 	// all high values to zero, and clear out all populations
 	void Reset()
 	{	COleDateTime dtNew;
@@ -275,4 +269,4 @@ protected:
 	vector<int> m_arrFitness;
 };
 
-#endif // !defined(AFX_UNIVERSE_H__8FEEA008_A783_11D4_B7BC_00C04FFA3C73__INCLUDED_)
+/////////////////////////////////////////////////////////////////////////////

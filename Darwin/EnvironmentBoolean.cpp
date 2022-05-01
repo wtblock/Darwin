@@ -1,6 +1,6 @@
-// EnvironmentBoolean.cpp: implementation of the CEnvironmentBoolean class.
-//
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2003-2022 by W. T. Block, All Rights Reserved
+/////////////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
 #include "darwin.h"
@@ -12,9 +12,9 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // Construction/Destruction
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 CEnvironmentBoolean::CEnvironmentBoolean()
 {	// initialize variables	to zero
 	SetNumberOfOutputs();
@@ -37,15 +37,18 @@ CEnvironmentBoolean::CEnvironmentBoolean()
 		int nLine = 0;
 		CString csMessage;
 		while ( file.ReadString( csLine ))
-		{	// remove leading and trailing whitespace
+		{
+			// remove leading and trailing whitespace
 			csLine.TrimLeft();
 			csLine.TrimRight();
 			int nLen = csLine.GetLength();
 			// lower case all text for simpler comparisons
 			csLine.MakeLower();
 			if ( nLine == 0 ) // verify this is a truth table file
-			{	if ( csLine != "truth table" )
-				{	bError = true;
+			{
+				if ( csLine != "truth table" )
+				{
+					bError = true;
 					csMessage.Format( "%03d: Truth table file has invalid format\n", nLine );
 					break;
 				}		
@@ -54,66 +57,84 @@ CEnvironmentBoolean::CEnvironmentBoolean()
 			} else if ( csLine[ 0 ] == '#' ) // ignore comment lines
 			{	
 			} else // parse remaining lines
-			{	char* pBuf = csLine.GetBuffer( nLen );
+			{
+				char* pBuf = csLine.GetBuffer( nLen );
 				CString csDelim( ",=" );
 				char* pToken = strtok( pBuf, csDelim );
 				if ( pToken )
-				{	CString csToken = pToken;
+				{
+					CString csToken = pToken;
 					CString csValue;
 					// read the number of input variables
 					if ( csToken == "inputs" ) // read the number of input variables
-					{	pToken = strtok( NULL, csDelim );
+					{
+						pToken = strtok( NULL, csDelim );
 						if ( pToken )
-						{	csValue = pToken;
+						{
+							csValue = pToken;
 							SetNumberOfVariables( atol( csValue ));	
 						} else
-						{	bError = true;
+						{
+							bError = true;
 							csMessage.Format( "%03d: Error reading number of inputs\n", nLine );
 							break;
 						}
 					} else if ( csToken == "outputs" ) // read the number of output variables
-					{	pToken = strtok( NULL, csDelim );
+					{
+						pToken = strtok( NULL, csDelim );
 						if ( pToken )
-						{	csValue = pToken;
+						{
+							csValue = pToken;
 							SetNumberOfOutputs( atol( csValue ));
 						} else
-						{	bError = true;
+						{
+							bError = true;
 							csMessage.Format( "%03d: Error reading number of outputs\n", nLine );
 							break;
 						}
 					} else if ( csToken == "maxterms" ) // read the maximum number of terms in the equation
-					{	pToken = strtok( NULL, csDelim );
+					{
+						pToken = strtok( NULL, csDelim );
 						if ( pToken )
-						{	csValue = pToken;
+						{
+							csValue = pToken;
 							SetMaximumNumberOfTerms( atol( csValue ));
 						} else
-						{	bError = true;
+						{
+							bError = true;
 							csMessage.Format( "%03d: Error reading maximum number of terms\n", nLine );
 							break;
 						}
 					} else if ( csToken == "output" ) // read the output variable being evaluated
-					{	pToken = strtok( NULL, csDelim );
+					{
+						pToken = strtok( NULL, csDelim );
 						if ( pToken )
-						{	csValue = pToken;
+						{
+							csValue = pToken;
 							SetOutput( atol( csValue ));
 						} else
-						{	bError = true;
+						{
+							bError = true;
 							csMessage.Format( "%03d: Error reading output value\n", nLine );
 							break;
 						}
 					} else if ( csToken == "invert" ) // generate inverted output?
-					{	pToken = strtok( NULL, csDelim );
+					{
+						pToken = strtok( NULL, csDelim );
 						if ( pToken )
-						{	csValue = pToken;
+						{
+							csValue = pToken;
 							int nValue = atol( csValue );
 							SetInvertedOutput( nValue != 0 );
 						} else
-						{	bError = true;
+						{
+							bError = true;
 							csMessage.Format( "%03d: Error reading invert value\n", nLine );
 							break;
 						}
 					} else // read a row from the truth table
-					{	TABLE_ENTRY te;
+					{
+						TABLE_ENTRY te;
 						char* pStop; // where the conversion stops
 						
 						// read the inputs from the line as a hex value--this represents
@@ -125,7 +146,8 @@ CEnvironmentBoolean::CEnvironmentBoolean()
 						// hex value--to aid the user, but not used by the program
 						pToken = strtok( NULL, csDelim ); 
 						if ( pToken )
-						{	int nOut = 0; // column we are reading
+						{
+							int nOut = 0; // column we are reading
 							int nOutput = GetOutput(); // column we are looking for
 							
 							// assume failure
@@ -136,7 +158,8 @@ CEnvironmentBoolean::CEnvironmentBoolean()
 							// we are interested in--'output' token read earlier
 							pToken = strtok( NULL, csDelim );
 							while ( pToken )
-							{	csValue = pToken;
+							{
+								csValue = pToken;
 								if ( nOut == nOutput ) // this is the output we want
 								{	int nValue = atol( csValue );
 									bool bValue = nValue != 0;
@@ -151,13 +174,17 @@ CEnvironmentBoolean::CEnvironmentBoolean()
 								pToken = strtok( NULL, csDelim ); // get the next column
 								nOut++;	// and increment the column number
 							}
+
 							if ( bError )
-							{	break; // exit and display a message
+							{
+								break; // exit and display a message
 							} else
-							{	m_TruthTable.push_back( te ); // store entry in table
+							{
+								m_TruthTable.push_back( te ); // store entry in table
 							}
 						} else // line ended unexpectedly
-						{	bError = true;	
+						{
+							bError = true;	
 							csMessage.Format( "%03d: Unexpected end-of-line\n", nLine );
 						}
 					}
@@ -166,12 +193,14 @@ CEnvironmentBoolean::CEnvironmentBoolean()
 			nLine++; // keep track of line number for error messages
 		}
 		if ( bError ) // tell the user what went wrong
-		{	csMessage += "An error occurred reading the truth table file:\n\t TruthTableNoDC.txt";
+		{
+			csMessage += "An error occurred reading the truth table file:\n\t TruthTableNoDC.txt";
 			AfxMessageBox( csMessage );
 		}
 	}
 	catch(...)
-	{	AfxMessageBox( "Could not open truth table file: TruthTableNoDC.txt" );
+	{
+		AfxMessageBox( "Could not open truth table file: TruthTableNoDC.txt" );
 		bError = true;
 	}
 
@@ -180,23 +209,23 @@ CEnvironmentBoolean::CEnvironmentBoolean()
 
 } // CEnvironmentBoolean
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 CEnvironmentBoolean::~CEnvironmentBoolean()
 {
 	m_TruthTable.clear();
 }
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // given a strand of DNA evaluate its fitness to survive this environment
 // where larger numbers are better.  This is a pure virtual function,
-// so each derived environment needs to create its own implimentation.
+// so each derived environment needs to create its own implementation.
 int CEnvironmentBoolean::EvaluateFitness( const vector<bool>& DNA )
 {	// using standard boolean algebra techniques, a truth table
 	// can be evaluated to a boolean equation of the following format:
 
 	//		f = c'd' + ac'+ a'b'd' + ab'd
 
-	// where the apostrophy (') indicates the inverse of the variable
+	// where the apostrophe (') indicates the inverse of the variable
 	
 	// Fitness will be evaluated by the number of correct answers for 
 	// all possible states for the variables a, b, c and d, etc., minimum 
@@ -301,7 +330,7 @@ int CEnvironmentBoolean::EvaluateFitness( const vector<bool>& DNA )
 					nIndex = nTerm * nVariables + nVariable;
 					// if the variable is used
 					if ( DNA[ nIndex ] )
-					{	// if any varibles are used, the term is used
+					{	// if any variables are used, the term is used
 						bTermUsed = true; 
 						// offset USE gene by max inputs to index the INV gene
 						bool bInverted = DNA[ nIndex + nMaxInputs ];
@@ -345,4 +374,4 @@ int CEnvironmentBoolean::EvaluateFitness( const vector<bool>& DNA )
 	return nFitness;
 } // EvaluateFitness
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////

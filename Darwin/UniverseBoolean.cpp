@@ -1,7 +1,6 @@
-// UniverseBoolean.cpp: implementation of the CUniverseBoolean class.
-//
-//////////////////////////////////////////////////////////////////////
-
+/////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2003-2022 by W. T. Block, All Rights Reserved
+/////////////////////////////////////////////////////////////////////////////
 #include "stdafx.h"
 #include "darwin.h"
 #include "UniverseBoolean.h"
@@ -13,9 +12,9 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // Construction/Destruction
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // default constructor
 CUniverseBoolean::CUniverseBoolean()
 {
@@ -24,14 +23,14 @@ CUniverseBoolean::CUniverseBoolean()
 	SetIsOK( m_env.GetIsOK());
 }
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // default destructor
 CUniverseBoolean::~CUniverseBoolean()
 {
 
 }
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // build the next generation
 // this is a pure virtual function because it depends on the
 // type of creatures living in this universe and the type of 
@@ -140,8 +139,8 @@ void CUniverseBoolean::NextGeneration()
 		CCreatureBoolean* pFather = 0;
 
 		// get the most fit female to be the mother
-		// sisters who were related to an earlier potential spouce have
-		// been queued up for a future spouce--use them for the mother
+		// sisters who were related to an earlier potential spouse have
+		// been queued up for a future spouse--use them for the mother
 		// first if they are available
 		if ( SisterQueue.size() > 0 ) // any sisters waiting?
 		{	pMother = (CCreatureBoolean*)SisterQueue.top();
@@ -168,8 +167,8 @@ void CUniverseBoolean::NextGeneration()
 				break;
 			}
 		} else // all parents are female
-		{	// sisters who were related to an earlier potential spouce have
-			// been queued up for a future spouce--use them for the father
+		{	// sisters who were related to an earlier potential spouse have
+			// been queued up for a future spouse--use them for the father
 			// first if they are available
 			if ( SisterQueue.size() > 0 ) // any sisters waiting?
 			{	pFather = (CCreatureBoolean*)SisterQueue.top();
@@ -188,7 +187,7 @@ void CUniverseBoolean::NextGeneration()
 
 		bool bNoFemales = false;
 		// check to see if new mother and father are related
-		if ( m_uRestrictedGenerations > 0 ) // we dont allow relatives to marry
+		if ( m_uRestrictedGenerations > 0 ) // we don't allow relatives to marry
 		{	while ( pFather->GetIsRelated( *pMother ))
 			{	SisterQueue.push( pMother ); // let the sister wait here
 				if ( nFemales > 0 )
@@ -284,7 +283,7 @@ void CUniverseBoolean::NextGeneration()
 	m_arrFitness.push_back( m_nAverageFitness );
 } // NextGeneration
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // the beginning of the universe initializes the population
 // this is a pure virtual function, because it depends on the 
 // type of creatures living in this universe and the type of 
@@ -309,7 +308,7 @@ void CUniverseBoolean::BigBang()
 	const int nRungs = nVariables * nTerms * nTypesOfDNA;
 	while ( m_uPopulation < m_uInitialPopulation )
 	{	// spontaneously create a new creature with a nRungs of DNA and
-		// nGenerations of ancestors in their geneology
+		// nGenerations of ancestors in their genealogy
 		CCreatureBoolean* pCreature = new CCreatureBoolean( nRungs, nGenerations );
 		pCreature->SetNumberOfVariables( nVariables );
 		pCreature->SetMaximumNumberOfTerms( nTerms );
@@ -339,7 +338,7 @@ void CUniverseBoolean::BigBang()
 	m_arrFitness.push_back( m_nAverageFitness );
 } // BigBang
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // update the average fitness given a current population and a new fitness
 // since fitness is specific to the type of creature
 // living in the universe, this is a pure virtual function
@@ -383,7 +382,7 @@ void CUniverseBoolean::UpdateAverageFitness( int nFitness, UINT& nPopulation )
 
 } // UpdateAverageFitness
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // read the universe from a text file
 bool CUniverseBoolean::Read( CStdioFile& refFile )
 {	
@@ -492,7 +491,7 @@ bool CUniverseBoolean::Read( CStdioFile& refFile )
 	return true;	
 } // Read
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // write the universe to a text file
 void CUniverseBoolean::Write( CStdioFile& refFile )
 {
@@ -572,4 +571,4 @@ void CUniverseBoolean::Write( CStdioFile& refFile )
 
 } // Write
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////

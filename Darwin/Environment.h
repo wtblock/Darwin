@@ -1,14 +1,7 @@
-// Environment.h: interface for the CEnvironment class.
-//
-//////////////////////////////////////////////////////////////////////
-
-#if !defined(AFX_ENVIRONMENT_H__8FEEA006_A783_11D4_B7BC_00C04FFA3C73__INCLUDED_)
-#define AFX_ENVIRONMENT_H__8FEEA006_A783_11D4_B7BC_00C04FFA3C73__INCLUDED_
-
-#if _MSC_VER > 1000
+/////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2003-2022 by W. T. Block, All Rights Reserved
+/////////////////////////////////////////////////////////////////////////////
 #pragma once
-#endif // _MSC_VER > 1000
-
 #include <vector>
 
 using namespace std;
@@ -36,7 +29,7 @@ public:
 public:
 	// given a strand of DNA evaluate its fitness to survive this environment
 	// where larger numbers are better.  This is a pure virtual function,
-	// so each derived environment needs to create its own implimentation.
+	// so each derived environment needs to create its own implementation.
 	virtual int EvaluateFitness( const vector<bool>& DNA ) = 0;
 
 // data values
@@ -45,4 +38,4 @@ protected:
 
 };
 
-#endif // !defined(AFX_ENVIRONMENT_H__8FEEA006_A783_11D4_B7BC_00C04FFA3C73__INCLUDED_)
+/////////////////////////////////////////////////////////////////////////////

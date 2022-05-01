@@ -1,17 +1,11 @@
-// EnvironmentBoolean.h: interface for the CEnvironmentBoolean class.
-//
-//////////////////////////////////////////////////////////////////////
-
-#if !defined(AFX_ENVIRONMENTBOOLEAN_H__6D147826_82BB_4F0E_B157_EDC90A97EB8C__INCLUDED_)
-#define AFX_ENVIRONMENTBOOLEAN_H__6D147826_82BB_4F0E_B157_EDC90A97EB8C__INCLUDED_
-
-#if _MSC_VER > 1000
+/////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2003-2022 by W. T. Block, All Rights Reserved
+/////////////////////////////////////////////////////////////////////////////
 #pragma once
-#endif // _MSC_VER > 1000
-
 #include "Environment.h"
 #include "math.h"
 
+/////////////////////////////////////////////////////////////////////////////
 class CEnvironmentBoolean : public CEnvironment  
 {
 public:
@@ -35,7 +29,7 @@ protected:
 	//	7E,   111 1110 =0,0,0,0
 	//	7F,   111 1111 =1,0,0,0
 	//
-	// The hex value preceeding the first comma is stored
+	// The hex value preceding the first comma is stored
 	// in the nInput value of the structure.  
 	//
 	// The binary values between the , and = is for human 
@@ -126,14 +120,16 @@ public:
 		return bValue;
 	}
 	
-	// maximumn number of terms in the equations--normally would be 
+	// maximum number of terms in the equations--normally would be 
 	// equal to the number of input combinations, but with don't care 
 	// states, this value becomes the number of entries in the 
 	// truth table.
 	int GetMaximumNumberOfTerms()
-	{	int nTerms = m_TruthTable.size();
+	{
+		int nTerms = (int)m_TruthTable.size();
 		if ( m_nMaxTerms > 0 )
-		{	nTerms = m_nMaxTerms;
+		{
+			nTerms = m_nMaxTerms;
 		}
 		return nTerms; 
 	}
@@ -149,14 +145,14 @@ public:
 
 	// weighted value for number of terms in the equation
 	// (less important than correct answers, but slightly more
-	// important than the number of inputs (un-weighted by default)
+	// important than the number of inputs (unweighted by default)
 	int GetNumberOfTermsWeight(){ return 10000; }
 
 // operations
 public:
 	// given a strand of DNA, evaluate its fitness to survive this environment
 	// where larger numbers are better.  This is a pure virtual function,
-	// so each derived environment needs to create its own implimentation.
+	// so each derived environment needs to create its own implementation.
 	virtual int EvaluateFitness( const vector<bool>& DNA );
 
 // data variables
@@ -173,4 +169,4 @@ private:
 
 };
 
-#endif // !defined(AFX_ENVIRONMENTBOOLEAN_H__6D147826_82BB_4F0E_B157_EDC90A97EB8C__INCLUDED_)
+/////////////////////////////////////////////////////////////////////////////

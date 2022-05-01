@@ -1,6 +1,6 @@
-// Universe.cpp: implementation of the CUniverse class.
-//
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2003-2022 by W. T. Block, All Rights Reserved
+/////////////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
 #include "Darwin.h"
@@ -14,11 +14,11 @@ static char THIS_FILE[]=__FILE__;
 
 static const char s_szFileType[] = "Darwin";
 static const char s_szVersion[] = "Version::3";
-static const char s_szComment[] = "Clear Brook High School::Ms. Keiffer's Class::Science Fair Project 2003/2004";
+static const char s_szComment[] = "Science Fair Project 2003/2022";
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // Construction/Destruction
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // default constructor
 CUniverse::CUniverse()
 {
@@ -39,14 +39,14 @@ CUniverse::CUniverse()
 	m_nAverageFitness = 0; // average fitness of current generation
 }
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // default destructor
 CUniverse::~CUniverse()
 {	
 	FreePopulations();
 } // ~CUniverse
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // update high score data
 void CUniverse::UpdateHighScoreData()
 {	int nHighFitness = 0, nFemaleFitness = 0, nMaleFitness = 0;
@@ -79,7 +79,7 @@ void CUniverse::UpdateHighScoreData()
 	}
 } // UpdateHighScoreData
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // get high score data
 void CUniverse::GetHighScoreData
 (	int& nFitness, 
@@ -93,7 +93,7 @@ void CUniverse::GetHighScoreData
 	csSignature = m_csHighSignature;
 } // GetHighScoreData
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // copy the male/female population to the enumeration population
 void CUniverse::SetEnumeration( bool bMale )
 {	priority_queue<CCreature*, std::vector<CCreature*>, lessptr<CCreature*> > tempPopulation;
@@ -126,7 +126,7 @@ void CUniverse::SetEnumeration( bool bMale )
 	}
 } // SetEnumeration
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // parse strings in the format of "key=value"
 bool CUniverse::ParseKeyValueString( CString& csLine, CString& csKey, CString& csValue )
 {	bool bOK = true;
@@ -147,7 +147,7 @@ bool CUniverse::ParseKeyValueString( CString& csLine, CString& csKey, CString& c
 	return bOK;
 } // ParseKeyValueString
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // read a string value
 bool CUniverse::ReadKey( CStdioFile& refFile, LPCSTR pcszKey, CString& refValue )
 {	CString csLine, csKey, csValue;
@@ -168,7 +168,7 @@ bool CUniverse::ReadKey( CStdioFile& refFile, LPCSTR pcszKey, CString& refValue 
 	return true;
 } // ReadKey
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // read a long value
 bool CUniverse::ReadKey( CStdioFile& refFile, LPCSTR pcszKey, long& refValue )
 {	CString csValue;
@@ -178,7 +178,7 @@ bool CUniverse::ReadKey( CStdioFile& refFile, LPCSTR pcszKey, long& refValue )
 	return true;
 } // ReadKey
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // read a bool value
 bool CUniverse::ReadKey( CStdioFile& refFile, LPCSTR pcszKey, bool& refValue )
 {	long lValue;
@@ -188,7 +188,7 @@ bool CUniverse::ReadKey( CStdioFile& refFile, LPCSTR pcszKey, bool& refValue )
 	return true;
 } // ReadKey
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // write the average fitness to text file
 void CUniverse::ReadAverageFitness( CStdioFile& refFile )
 {	
@@ -215,7 +215,7 @@ void CUniverse::ReadAverageFitness( CStdioFile& refFile )
 	}
 } // ReadAverageFitness
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // read the universe from a text file
 bool CUniverse::Read( CStdioFile& refFile )
 {	CString csLine, csText, csValue;
@@ -300,7 +300,7 @@ bool CUniverse::Read( CStdioFile& refFile )
 	return true;	
 } // Read
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // print a line of text and return new y co-ordinate
 int CUniverse::PrintLine( CDC* pDC, int nX, int nY, const CString& csLine )
 {
@@ -314,7 +314,7 @@ int CUniverse::PrintLine( CDC* pDC, int nX, int nY, const CString& csLine )
 	return nY;
 } // PrintLine
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // print the state of the universe
 void CUniverse::Print( CDC* pDC )
 {
@@ -520,7 +520,7 @@ void CUniverse::Print( CDC* pDC )
 
 	vector<CPoint> arrPoints;
 
-	int nPoint, nPoints = m_arrFitness.size();
+	int nPoint, nPoints = (int)m_arrFitness.size();
 	double dFitness = nFitness;
 	if ( nPoints > 0 )
 	{
@@ -543,12 +543,12 @@ void CUniverse::Print( CDC* pDC )
 	pDC->SelectObject( pPenOld );
 } // Print
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // write the average fitness to text file
 void CUniverse::WriteAverageFitness( CStdioFile& refFile )
 {
 	CString csValue, csLine;
-	int nFitness, nGeneration, nGenerations = m_arrFitness.size();
+	int nFitness, nGeneration, nGenerations = (int)m_arrFitness.size();
 
 	refFile.WriteString( "AVERAGE FITNESS\n" );
 
@@ -573,7 +573,7 @@ void CUniverse::WriteAverageFitness( CStdioFile& refFile )
 
 } // WriteAverageFitness
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // write the universe to a text file
 void CUniverse::Write( CStdioFile& refFile )
 {
@@ -649,5 +649,5 @@ void CUniverse::Write( CStdioFile& refFile )
 
 } // Write
 
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 

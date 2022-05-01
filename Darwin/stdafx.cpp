@@ -1,7 +1,6 @@
-
-// stdafx.cpp : source file that includes just the standard includes
-// Darwin.pch will be the pre-compiled header
-// stdafx.obj will contain the pre-compiled type information
+/////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2003-2022 by W. T. Block, All Rights Reserved
+/////////////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
 
