@@ -1,0 +1,182 @@
+Truth Table
+
+# This truth table is for a seven segment to BCD
+# conversion.  There are seven input variables 
+# corresponding to each of the segments and four
+# output functions corresponding to each bit of
+# the binary coded decimal (BCD) output.
+
+# following line indicates there are 7 binary inputs
+inputs=7
+
+# following line indicates there are 4 binary outputs
+outputs=4
+
+# indicate the maximum acceptable number of terms in
+# final equation (limits number of genes). this value
+# is used unless it is set to zero, otherwise the 
+# number of terms is based on the truth table size.
+maxterms=128
+
+# following line indicates which of the 4 output 
+# columns is being evaluated (Darwin program only
+# evaluates one output function at a time).
+output=1
+
+# generate inverted output
+invert=1
+
+# The actual truth table has a leading hex value for
+# each row (state) of the table represented. Rows not 
+# represented are "don't care" states because they are
+# invalid. In this case all rows are represented because
+# we want an E output to indicate an error condition.
+  
+# The binary data following the hex value is ignored by 
+# the program (equivalent to the hex value) and is used 
+# to clarify for the user what the input values are for  
+# this state.  
+
+# The comma separated values following the equal sign 
+# represent the boolean output value for the state	
+# (one column for each output function--four output
+# functions in this case)
+
+#hex  abc defg =0,1,2,3
+
+00,   000 0000 =1,1,1,0
+01,   000 0001 =1,1,1,0
+02,   000 0010 =1,1,1,0
+03,   000 0011 =1,1,1,0
+04,   000 0100 =1,1,1,0
+05,   000 0101 =1,1,1,0
+06,   000 0110 =1,1,1,0
+07,   000 0111 =1,1,1,0
+08,   000 1000 =1,1,1,0
+09,   000 1001 =1,1,1,0
+0A,   000 1010 =1,1,1,0
+0B,   000 1011 =1,1,1,0
+0C,   000 1100 =1,1,1,0
+0D,   000 1101 =1,1,1,0
+0E,   000 1110 =1,1,1,0
+0F,   000 1111 =1,1,1,0
+10,   001 0000 =1,1,1,0
+11,   001 0001 =1,1,1,0
+12,   001 0010 =1,1,1,0
+13,   001 0011 =1,1,1,0
+14,   001 0100 =1,1,1,0
+15,   001 0101 =1,1,1,0
+16,   001 0110 =1,1,1,0
+17,   001 0111 =1,1,1,0
+18,   001 1000 =1,1,1,0
+19,   001 1001 =1,1,1,0
+1A,   001 1010 =1,1,1,0
+1B,   001 1011 =1,1,1,0
+1C,   001 1100 =1,1,1,0
+1D,   001 1101 =1,1,1,0
+1E,   001 1110 =1,1,1,0
+1F,   001 1111 =1,1,1,0
+20,   010 0000 =1,1,1,0
+21,   010 0001 =1,1,1,0
+22,   010 0010 =1,1,1,0
+23,   010 0011 =1,1,1,0
+24,   010 0100 =1,1,1,0
+25,   010 0101 =1,1,1,0
+26,   010 0110 =1,1,1,0
+27,   010 0111 =1,1,1,0
+28,   010 1000 =1,1,1,0
+29,   010 1001 =1,1,1,0
+2A,   010 1010 =1,1,1,0
+2B,   010 1011 =1,1,1,0
+2C,   010 1100 =1,1,1,0
+2D,   010 1101 =1,1,1,0
+2E,   010 1110 =1,1,1,0
+2F,   010 1111 =1,1,1,0
+30,   011 0000 =0,0,0,1
+31,   011 0001 =1,1,1,0
+32,   011 0010 =1,1,1,0
+33,   011 0011 =0,1,0,0
+34,   011 0100 =1,1,1,0
+35,   011 0101 =1,1,1,0
+36,   011 0110 =1,1,1,0
+37,   011 0111 =1,1,1,0
+38,   011 1000 =1,1,1,0
+39,   011 1001 =1,1,1,0
+3A,   011 1010 =1,1,1,0
+3B,   011 1011 =1,1,1,0
+3C,   011 1100 =1,1,1,0
+3D,   011 1101 =1,1,1,0
+3E,   011 1110 =1,1,1,0
+3F,   011 1111 =1,1,1,0
+40,   100 0000 =1,1,1,0
+41,   100 0001 =1,1,1,0
+42,   100 0010 =1,1,1,0
+43,   100 0011 =1,1,1,0
+44,   100 0100 =1,1,1,0
+45,   100 0101 =1,1,1,0
+46,   100 0110 =1,1,1,0
+47,   100 0111 =1,1,1,0
+48,   100 1000 =1,1,1,0
+49,   100 1001 =1,1,1,0
+4A,   100 1010 =1,1,1,0
+4B,   100 1011 =1,1,1,0
+4C,   100 1100 =1,1,1,0
+4D,   100 1101 =1,1,1,0
+4E,   100 1110 =1,1,1,0
+4F,   100 1111 =1,1,1,0
+50,   101 0000 =1,1,1,0
+51,   101 0001 =1,1,1,0
+52,   101 0010 =1,1,1,0
+53,   101 0011 =1,1,1,0
+54,   101 0100 =1,1,1,0
+55,   101 0101 =1,1,1,0
+56,   101 0110 =1,1,1,0
+57,   101 0111 =1,1,1,0
+58,   101 1000 =1,1,1,0
+59,   101 1001 =1,1,1,0
+5A,   101 1010 =1,1,1,0
+5B,   101 1011 =0,1,0,1
+5C,   101 1100 =1,1,1,0
+5D,   101 1101 =1,1,1,0
+5E,   101 1110 =1,1,1,0
+5F,   101 1111 =0,1,1,0
+60,   110 0000 =1,1,1,0
+61,   110 0001 =1,1,1,0
+62,   110 0010 =1,1,1,0
+63,   110 0011 =1,1,1,0
+64,   110 0100 =1,1,1,0
+65,   110 0101 =1,1,1,0
+66,   110 0110 =1,1,1,0
+67,   110 0111 =1,1,1,0
+68,   110 1000 =1,1,1,0
+69,   110 1001 =1,1,1,0
+6A,   110 1010 =1,1,1,0
+6B,   110 1011 =1,1,1,0
+6C,   110 1100 =1,1,1,0
+6D,   110 1101 =0,0,1,0
+6E,   110 1110 =1,1,1,0
+6F,   110 1111 =1,1,1,0
+70,   111 0000 =0,1,1,1
+71,   111 0001 =1,1,1,0
+72,   111 0010 =1,1,1,0
+73,   111 0011 =1,1,1,0
+74,   111 0100 =1,1,1,0
+75,   111 0101 =1,1,1,0
+76,   111 0110 =1,1,1,0
+77,   111 0111 =1,1,1,0
+78,   111 1000 =1,1,1,0
+79,   111 1001 =0,0,1,1
+7A,   111 1010 =1,1,1,0
+7B,   111 1011 =1,0,0,1
+7C,   111 1100 =1,1,1,0
+7D,   111 1101 =1,1,1,0
+7E,   111 1110 =0,0,0,0
+7F,   111 1111 =1,0,0,0
+
+# solutions found
+#  f0' = a'bcd'e'fg + ab'cdfg + abc'def'g + abcde'f'g + abcdefg' + bcd'e'f'g'
+#  f1' = a'bcd'e'f'g' + abc'def'g + abcde'g + abcdef
+#  f2' = a'bcd'e'f'g' + a'bcd'e'fg + abcdef + acde'fg
+#  f3' = a'g + b'd' + b'f' + c' + d'f + d'g + dg' + e + fg'
+#  f3 = bcd'e'f'g' + acde'fg + abcde'g
+#

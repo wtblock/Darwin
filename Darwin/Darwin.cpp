@@ -15,9 +15,8 @@
 #define new DEBUG_NEW
 #endif
 
-
+/////////////////////////////////////////////////////////////////////////////
 // CDarwinApp
-
 BEGIN_MESSAGE_MAP(CDarwinApp, CWinApp)
 	ON_COMMAND(ID_APP_ABOUT, &CDarwinApp::OnAppAbout)
 	// Standard file based document commands
@@ -25,9 +24,8 @@ BEGIN_MESSAGE_MAP(CDarwinApp, CWinApp)
 	ON_COMMAND(ID_FILE_OPEN, &CWinApp::OnFileOpen)
 END_MESSAGE_MAP()
 
-
+/////////////////////////////////////////////////////////////////////////////
 // CDarwinApp construction
-
 CDarwinApp::CDarwinApp()
 {
 	// TODO: replace application ID string below with unique ID string; recommended
@@ -38,13 +36,13 @@ CDarwinApp::CDarwinApp()
 	// Place all significant initialization in InitInstance
 }
 
+/////////////////////////////////////////////////////////////////////////////
 // The one and only CDarwinApp object
-
 CDarwinApp theApp;
 
 
+/////////////////////////////////////////////////////////////////////////////
 // CDarwinApp initialization
-
 BOOL CDarwinApp::InitInstance()
 {
 	// InitCommonControlsEx() is required on Windows XP if an application
@@ -81,8 +79,10 @@ BOOL CDarwinApp::InitInstance()
 	// Change the registry key under which our settings are stored
 	// TODO: You should modify this string to be something appropriate
 	// such as the name of your company or organization
-	SetRegistryKey(_T("Local AppWizard-Generated Applications"));
-	LoadStdProfileSettings(16);  // Load standard INI file options (including MRU)
+	SetRegistryKey( _T("Block" ));
+
+	// Load standard INI file options (including MRU)
+	LoadStdProfileSettings( 16 );  
 
 
 	// Register the application's document templates.  Document templates
@@ -93,10 +93,11 @@ BOOL CDarwinApp::InitInstance()
 		RUNTIME_CLASS(CDarwinDoc),
 		RUNTIME_CLASS(CMainFrame),       // main SDI frame window
 		RUNTIME_CLASS(CDarwinView));
+
 	if (!pDocTemplate)
 		return FALSE;
-	AddDocTemplate(pDocTemplate);
 
+	AddDocTemplate(pDocTemplate);
 
 	// Parse command line for standard shell commands, DDE, file open
 	CCommandLineInfo cmdInfo;
@@ -106,7 +107,6 @@ BOOL CDarwinApp::InitInstance()
 	EnableShellOpen();
 	RegisterShellFileTypes(TRUE);
 
-
 	// Dispatch commands specified on the command line.  Will return FALSE if
 	// app was launched with /RegServer, /Register, /Unregserver or /Unregister.
 	if (!ProcessShellCommand(cmdInfo))
@@ -115,13 +115,19 @@ BOOL CDarwinApp::InitInstance()
 	// The one and only window has been initialized, so show and update it
 	m_pMainWnd->ShowWindow(SW_SHOW);
 	m_pMainWnd->UpdateWindow();
+	
 	// call DragAcceptFiles only if there's a suffix
 	//  In an SDI app, this should occur after ProcessShellCommand
 	// Enable drag/drop open
 	m_pMainWnd->DragAcceptFiles();
+
+	// seed the random number generator using time
+	srand( (unsigned int)time( NULL ) );
+
 	return TRUE;
 }
 
+/////////////////////////////////////////////////////////////////////////////
 int CDarwinApp::ExitInstance()
 {
 	//TODO: handle additional resources you may have added
@@ -130,11 +136,7 @@ int CDarwinApp::ExitInstance()
 	return CWinApp::ExitInstance();
 }
 
-// CDarwinApp message handlers
-
-
-// CAboutDlg dialog used for App About
-
+/////////////////////////////////////////////////////////////////////////////
 class CAboutDlg : public CDialogEx
 {
 public:
@@ -153,18 +155,22 @@ protected:
 	DECLARE_MESSAGE_MAP()
 };
 
+/////////////////////////////////////////////////////////////////////////////
 CAboutDlg::CAboutDlg() : CDialogEx(IDD_ABOUTBOX)
 {
 }
 
+/////////////////////////////////////////////////////////////////////////////
 void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 }
 
+/////////////////////////////////////////////////////////////////////////////
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
 END_MESSAGE_MAP()
 
+/////////////////////////////////////////////////////////////////////////////
 // App command to run the dialog
 void CDarwinApp::OnAppAbout()
 {
@@ -172,7 +178,7 @@ void CDarwinApp::OnAppAbout()
 	aboutDlg.DoModal();
 }
 
-// CDarwinApp message handlers
+/////////////////////////////////////////////////////////////////////////////
 
 
 

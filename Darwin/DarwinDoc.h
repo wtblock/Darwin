@@ -4,8 +4,9 @@
 
 
 #pragma once
+#include "UniverseBoolean.h"
 
-
+/////////////////////////////////////////////////////////////////////////////
 class CDarwinDoc : public CDocument
 {
 protected: // create from serialization only
@@ -14,6 +15,8 @@ protected: // create from serialization only
 
 // Attributes
 public:
+	// the universe is where all of our creatures live
+	CUniverseBoolean m_Universe;
 
 // Operations
 public:
@@ -22,10 +25,9 @@ public:
 public:
 	virtual BOOL OnNewDocument();
 	virtual void Serialize(CArchive& ar);
-#ifdef SHARED_HANDLERS
-	virtual void InitializeSearchContent();
-	virtual void OnDrawThumbnail(CDC& dc, LPRECT lprcBounds);
-#endif // SHARED_HANDLERS
+	virtual BOOL OnOpenDocument( LPCTSTR lpszPathName );
+	virtual BOOL OnSaveDocument( LPCTSTR lpszPathName );
+	virtual void DeleteContents();
 
 // Implementation
 public:
@@ -41,8 +43,4 @@ protected:
 protected:
 	DECLARE_MESSAGE_MAP()
 
-#ifdef SHARED_HANDLERS
-	// Helper function that sets search content for a Search Handler
-	void SetSearchContent(const CString& value);
-#endif // SHARED_HANDLERS
 };

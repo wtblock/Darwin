@@ -1,0 +1,72 @@
+Truth Table
+
+# This truth table is for a seven segment to BCD
+# conversion.  There are seven input variables 
+# corresponding to each of the segments and four
+# output functions corresponding to each bit of
+# the binary coded decimal (BCD) output.
+
+# following line indicates there are 7 binary inputs
+inputs=7
+
+# following line indicates there are 4 binary outputs
+outputs=4
+
+# indicate the maximum acceptable number of terms in
+# final equation (limits number of genes). this value
+# is used if it is smaller than the number of valid
+# states in the truth table (0 indicates it is not used)
+maxterms=0
+
+# following line indicates which of the 4 output 
+# columns is being evaluated (Darwin program only
+# evaluates one output function at a time).
+output=0
+
+# generate inverted output
+invert=0
+
+# The actual truth table has a leading hex value for
+# each row (state) of the table represented. Rows not 
+# represented are "don't care" states because they are
+# invalid. In this case there are only 10 valid states
+# -- one for each of the 10 posible decimal digits.
+  
+# The binary data following the hex value is ignored by 
+# the program (equivalent to the hex value) and is used 
+# to clarify for the user what the input values are for  
+# this state.  
+
+# The comma separated values following the equal sign 
+# represent the boolean output value for the state	
+# (one column for each output function--four output
+# functions in this case)
+
+#hex  abc defg =0,1,2,3
+
+30,   011 0000 =0,0,0,1
+33,   011 0011 =0,1,0,0
+5B,   101 1011 =0,1,0,1
+5F,   101 1111 =0,1,1,0
+6D,   110 1101 =0,0,1,0
+70,   111 0000 =0,1,1,1
+79,   111 1001 =0,0,1,1
+7B,   111 1011 =1,0,0,1
+7E,   111 1110 =0,0,0,0
+7F,   111 1111 =1,0,0,0
+
+# here are some of the equations discovered by Darwin
+
+#   f0 = bdfg
+#   f1 = ad' + b' + a'g
+#   f2 = af' + b'e
+#   f3 = f'g' + ae'
+
+# These are not the only solutions, but they should be
+# at least as small as any other solutions found. For 
+# example:
+
+#   f0 = abfg
+#   f1 = ad' + b' + d'g
+#   f2 (no other solutions have occurred)
+#   f3 = cf' + ae'
